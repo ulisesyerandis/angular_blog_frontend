@@ -1,6 +1,11 @@
 <div class="container">
-    <div class="page_content">
-        <div class="table_content">
+    <div class="page-content">
+        <div class="create-search-content">
+            <button class="btn-create" mat-button
+            >   Create Blog
+            </button>
+        </div>
+        <div class="table-content">
             <table mat-table [dataSource]="dataSource">
           
               <!-- Position Column -->
@@ -32,7 +37,7 @@
     <th mat-header-cell *matHeaderCellDef ></th>
     <th mat-cell *matCellDef="let element">
       <button 
-        class="btn-update"mat-button
+        class="btn btn-update"mat-button
       (click)="updateBlog(element.id, element)"
         > Update  </button>
     </ng-container>
@@ -41,7 +46,7 @@
         <th mat-header-cell *matHeaderCellDef ></th>
         <th mat-cell *matCellDef="let element">
       <button 
-        class="btn-delete"mat-button 
+        class="btn btn-delete"mat-button 
         (click)="deleteBlog(element.id)" 
       >   Delete  </button>
     </th>

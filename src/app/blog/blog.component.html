@@ -1,7 +1,61 @@
 <div class="container">
-    <button type="button" class="btn btn-primary" (click)="getAllBlogs()"> button</button>
-    <hr/>
-    <button type="button" class="btn btn-primary" (click)="getBlog('1')">get blog</button>
-    <hr/>
-    <button type="button" class="btn btn-primary" (click)="deleteBlog('17')">delete blog</button>
+    <div class="page_content">
+        <div class="table_content">
+            <table mat-table [dataSource]="dataSource">
+          
+              <!-- Position Column -->
+              <ng-container matColumnDef="position">
+                <th mat-header-cell *matHeaderCellDef> No. </th>
+                <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }} </td>
+              </ng-container>
+          
+              <!-- id Column -->
+              <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Id </th>
+                <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+              </ng-container>
+          
+              <!-- title Column -->
+              <ng-container matColumnDef="title">
+                <th mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+              </ng-container>
+          
+              <!-- author Column -->
+              <ng-container matColumnDef="author">
+                <th mat-header-cell *matHeaderCellDef> Author </th>
+                <td mat-cell *matCellDef="let element"> {{element.author}} </td>
+              </ng-container>
+
+              <!-- options column-->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef ></th>
+    <th mat-cell *matCellDef="let element">
+      <button 
+        class="btn-update"mat-button
+      (click)="updateBlog(element.id, element)"
+        > Update  </button>
+    </ng-container>
+
+    <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef ></th>
+        <th mat-cell *matCellDef="let element">
+      <button 
+        class="btn-delete"mat-button 
+        (click)="deleteBlog(element.id)" 
+      >   Delete  </button>
+    </th>
+  </ng-container>
+          
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                           showFirstLastButtons
+                           aria-label="Select page of periodic elements">
+            </mat-paginator>
+          </div>
+          
+    </div>
 </div>

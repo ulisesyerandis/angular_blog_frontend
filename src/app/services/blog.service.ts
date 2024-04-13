@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Blog_Model } from '../model/blog_Model';
+import { Blog } from '../model/blog';
 
 @Injectable({
   providedIn: 'root'
@@ -20,12 +20,12 @@ export class BlogService
     return this.http.get('http://localhost:8000/blog/' + id);
   }
 
-  public createBlog(blog: Blog_Model)
+  public createBlog(blog: Blog)
   {
     return this.http.post('http://localhost:8000/blog', blog);
   }
 
-  public updateBlog(id: string, blog: Blog_Model)
+  public updateBlog(id: string, blog: Blog)
   {
     return this.http.put('http://localhost:8000/blog/'  + id, blog);
   }

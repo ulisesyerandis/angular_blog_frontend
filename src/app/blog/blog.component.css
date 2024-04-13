@@ -1,0 +1,32 @@
+.container
+{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(200, 221, 250);
+
+    .page_content
+    {
+        width: 100%;
+        height: 90%;
+        padding-top: 2%;
+
+        display: grid;
+        grid-template-columns: auto;
+
+        justify-items: center;
+
+        .table_content
+        {
+            width: 95%;
+            height: auto;;
+
+           table
+           {
+                /* height: 90%; */
+           }
+        }
+    }
+}
+
+
+  

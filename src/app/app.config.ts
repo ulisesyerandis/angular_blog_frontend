@@ -7,13 +7,17 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormGroup } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   providers: 
   [
     provideRouter(routes),
     importProvidersFrom(HttpClientModule, MatTableModule,
-      MatPaginatorModule, MatButtonModule, ), 
+      MatPaginatorModule, MatButtonModule, MatFormFieldModule,
+      MatInputModule,), 
     provideAnimationsAsync()
   ]
 };

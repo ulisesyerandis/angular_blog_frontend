@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Blog } from '../model/blog';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService 
 {
+
   public constructor(private http: HttpClient)
   { }
 
@@ -24,6 +26,7 @@ export class BlogService
   {
     return this.http.post('http://localhost:8000/blog', blog);
   }
+    
 
   public updateBlog(id: string, blog: Blog)
   {

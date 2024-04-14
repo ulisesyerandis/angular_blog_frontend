@@ -77,15 +77,6 @@ export class BlogComponent implements OnInit
     });
   }
 
-  public createBlog(blog: Blog)  
-  {
-    this.blogService.createBlog(blog).subscribe({
-      next: (response: any) => {
-        this.blogCreated = response;
-      },
-    });
-  }
-
   public updateBlog(id: string, blog: Blog)
   {
     this.blogService.updateBlog(id, blog).subscribe({

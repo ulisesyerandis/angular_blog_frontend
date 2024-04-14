@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../model/blog';
 import { CommonModule } from '@angular/common';
@@ -6,6 +6,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { BlogFormComponent } from './blog-form/blog-form.component';
 
 @Component({
   selector: 'app-blog',
@@ -13,18 +14,22 @@ import { MatButtonModule } from '@angular/material/button';
   imports: 
   [
     CommonModule, MatTableModule,
-    MatButtonModule, MatPaginator
+    MatButtonModule, MatPaginator,
+    BlogFormComponent
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
 })
 export class BlogComponent implements OnInit 
 {
+  editable: boolean = false;
+  actionForm!: string;
+  blogToUpdate!: Blog;
+
   blogList: Blog[] = [];
   blog?: Blog;
   blogDeleted?: Blog;
   blogCreated?: Blog;
-  blogUpdated?: Blog;
 
   displayedColumns: string[] = ['position', 'id', 'title', 'author', 'edit', 'delete'];
   dataSource = new MatTableDataSource<Blog>();
@@ -75,24 +80,7 @@ export class BlogComponent implements OnInit
         }
       },
     });
-  }
-
-  public updateBlog(id: string, blog: Blog)
-  {
-    this.blogService.updateBlog(id, blog).subscribe({
-      next: (response: any) => {
-        this.blogUpdated = response;
-      },
-      error: (error: any) => {
-        if (error instanceof HttpErrorResponse) {
-          console.log('Error status: ' + error.status);
-          console.log('Error body: ' + JSON.stringify(error.error));
-        } else {
-          console.log('Error: ' + error);
-        }
-      },
-    });
-  }
+  }                                    
 
   public deleteBlog(id: string)
   {
@@ -111,5 +99,19 @@ export class BlogComponent implements OnInit
         }
       },
     });
+  }
+
+  public createButton()
+  {
+    this.actionForm = 'Create';
+    this.editable = true;
+  }
+
+  public updateBlog(id: string, blog: Blog)
+  {
+    this.actionForm = 'Update';
+    this.editable = true;
+    this.blogToUpdate = blog;
+    this.blogToUpdate.id = id;
   }
 }

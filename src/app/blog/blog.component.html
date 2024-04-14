@@ -1,7 +1,9 @@
 <div class="container">
+  @if (!editable) 
+  {
     <div class="page-content">
         <div class="create-search-content">
-            <button class="btn-create" mat-button
+            <button class="btn-create" mat-button (click)="createButton()"
             >   Create Blog
             </button>
         </div>
@@ -33,24 +35,24 @@
               </ng-container>
 
               <!-- options column-->
-  <ng-container matColumnDef="edit">
-    <th mat-header-cell *matHeaderCellDef ></th>
-    <th mat-cell *matCellDef="let element">
-      <button 
-        class="btn btn-update"mat-button
-      (click)="updateBlog(element.id, element)"
-        > Update  </button>
-    </ng-container>
+            <ng-container matColumnDef="edit">
+              <th mat-header-cell *matHeaderCellDef ></th>
+              <th mat-cell *matCellDef="let element">
+              <button 
+                class="btn btn-update"mat-button
+                (click)="updateBlog(element.id, element)"
+              > Update  </button>
+            </ng-container>
 
-    <ng-container matColumnDef="delete">
-        <th mat-header-cell *matHeaderCellDef ></th>
-        <th mat-cell *matCellDef="let element">
-      <button 
-        class="btn btn-delete"mat-button 
-        (click)="deleteBlog(element.id)" 
-      >   Delete  </button>
-    </th>
-  </ng-container>
+            <ng-container matColumnDef="delete">
+              <th mat-header-cell *matHeaderCellDef ></th>
+              <th mat-cell *matCellDef="let element">
+              <button 
+                class="btn btn-delete"mat-button 
+                (click)="deleteBlog(element.id)"  
+              >   Delete  </button>
+              </th>
+            </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -63,4 +65,24 @@
           </div>
           
     </div>
+  } @else {
+
+    @defer (when actionForm === 'Create') 
+    {
+      <app-blog-form
+        [actionForm]="actionForm"
+        (editable)="editable = $event"
+      />
+    }
+    @defer (when actionForm === 'Update') 
+    {
+      <app-blog-form
+      [actionForm]="actionForm"
+      [blogToUpdate]="blogToUpdate"
+      (editable)="editable = $event"
+      />
+    }
+    
+  }
+    
 </div>

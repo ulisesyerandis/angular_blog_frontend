@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Blog } from '../model/blog';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BlogService 
 {
+  // public blogCreatedSubject = new BehaviorSubject<Blog | null>(null);
 
   public constructor(private http: HttpClient)
   { }
@@ -26,6 +27,21 @@ export class BlogService
   {
     return this.http.post('http://localhost:8000/blog', blog);
   }
+
+  // get blogCreated$() {
+  //   return this.blogCreatedSubject.asObservable();
+  // }
+
+  // createBlog(blog: Blog) {
+  //   return this.http.post('http://localhost:8000/blog', blog).subscribe({
+  //     next: (response: any) => {
+  //       this.blogCreatedSubject.next(response);
+  //     },
+  //     error: (error: any) => {
+  //       console.error('Error creating blog:', error);
+  //     }
+  //   });
+  // }
     
 
   public updateBlog(id: string, blog: Blog)

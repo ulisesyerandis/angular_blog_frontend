@@ -7,6 +7,7 @@ import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { BlogFormComponent } from './blog-form/blog-form.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-blog',
@@ -22,8 +23,6 @@ import { BlogFormComponent } from './blog-form/blog-form.component';
 })
 export class BlogComponent implements OnInit 
 {
-  editable: boolean = false;
-  actionForm!: string;
   blogToUpdate!: Blog;
 
   blogList: Blog[] = [];
@@ -31,21 +30,29 @@ export class BlogComponent implements OnInit
   blogDeleted?: Blog;
   blogCreated?: Blog;
 
-  displayedColumns: string[] = ['position', 'id', 'title', 'author', 'edit', 'delete'];
+  displayedColumns: string[] = ['position', 'id', 'title', 'author', 'options'];
   dataSource = new MatTableDataSource<Blog>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
-  public constructor(private blogService: BlogService)
+  public constructor
+  (
+    private blogService: BlogService,
+    private router: Router,
+    private route: ActivatedRoute,
+  )
   { }
   
   ngOnInit(): void 
   {
-    this.getAllBlogs();
+    this.getAllBlogs();   
+    this.route.queryParams.subscribe(params =>{
+      this.getAllBlogs();
+    })
   }
 
   public getAllBlogs()
@@ -54,14 +61,19 @@ export class BlogComponent implements OnInit
       next: (response: any) => {
         this.blogList = response;
         this.dataSource.data = this.blogList;
-        
         console.log('bloglist = ' + this.blogList);
-        console.log('datasource = ' + this.dataSource)
+        console.log('datasource = ' + this.dataSource);
+        this.setupPaginator();
       },
       error: (error: any) => {
-
       },
     });
+  }
+
+  public setupPaginator() 
+  {
+    this.dataSource.paginator = this.paginator;
+    console.log('paginator = ' + this.dataSource.paginator);
   }
 
   public getBlog(id: string)
@@ -88,7 +100,7 @@ export class BlogComponent implements OnInit
       next: (response: any) => {
         this.blogDeleted = response;
         console.log('blog deleted = ' + this.blogDeleted?.title);
-        location.reload();
+        this.getAllBlogs();
       },
       error: (error: any) => {
         if (error instanceof HttpErrorResponse) {
@@ -103,15 +115,30 @@ export class BlogComponent implements OnInit
 
   public createButton()
   {
-    this.actionForm = 'Create';
-    this.editable = true;
+    this.navigateToForm('Create');
   }
 
   public updateBlog(id: string, blog: Blog)
   {
-    this.actionForm = 'Update';
-    this.editable = true;
     this.blogToUpdate = blog;
     this.blogToUpdate.id = id;
+    this.navigateToForm('Update', this.blogToUpdate);
   }
+
+
+  public navigateToForm(action: string, blog?: Blog) 
+  {
+    console.log('sended action: ' + action);
+    if(action === 'Create')
+      {
+        this.router.navigate(['/blog-form'], {queryParams: {action: 'Create'}});
+      } else if(action === 'Update')
+    {
+      console.log('sending blog: ' + blog?.title);
+      console.log('sended action: ' + action);
+      const blogJson = JSON.stringify(blog);
+      this.router.navigate(['/blog-form'], {queryParams: {action: 'Update', blog: blogJson}});
+    }
+  }
+  
 }

@@ -10,6 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormGroup } from '@angular/forms';
+import { BlogFormComponent } from './blog/blog-form/blog-form.component';
 
 export const appConfig: ApplicationConfig = {
   providers: 
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(HttpClientModule, MatTableModule,
       MatPaginatorModule, MatButtonModule, MatFormFieldModule,
       MatInputModule,), 
+      BlogFormComponent,
     provideAnimationsAsync()
   ]
 };

@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { Blog } from '../../model/blog';
 import { BlogService } from '../../services/blog.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -24,7 +26,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 export class BlogFormComponent implements OnInit
 {
-  
+  private blogCreatedSubject = new BehaviorSubject<Blog | null>(null);
+
   formulario: FormGroup;
   blogCreated!: Blog;
   blogUpdated!: Blog;
@@ -34,14 +37,16 @@ export class BlogFormComponent implements OnInit
   title: string = 'Create Blog';
   buttonTitle: string = '';
 
-  @Input()actionForm: string = '';
-  @Input()blogToUpdate!: Blog;
-  @Output()editable = new EventEmitter<boolean>();
+  blogJson?: string;
+
+  formAction: string = '';
 
   constructor
   (
     private fb: FormBuilder, 
-    private blogService: BlogService
+    private blogService: BlogService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) 
   {
     this.formulario = this.fb.group({
@@ -54,19 +59,32 @@ export class BlogFormComponent implements OnInit
 
    ngOnInit(): void
   {
-    if(this.actionForm === 'Create')
-      {
-        this.title = this.actionForm;
+    this.route.queryParams.subscribe(params => {
+      this.formAction = params['action'];
+      this.blogJson = params['blog'];
+      console.log('deliver action = ' + this.formAction + '-' + params['action']);
+    });
+  
+    if(this.formAction === 'Create')
+      {console.log('deliver action = ' + this.formAction );
+        this.title = this.formAction;
         this.buttonTitle = 'Create Blog';
       }
-      else if (this.actionForm == 'Update')
+    else if (this.formAction == 'Update')
         {
-          this.title = this.actionForm;
+          this.title = this.formAction;
           this.buttonTitle = 'Update Blog';
-          this.formulario.value.title = this.blogToUpdate.title;
-          this.formulario.value.content = this.blogToUpdate.content;
-          this.formulario.value.author = this.blogToUpdate.author;
-          this.oldBlog = this.blogToUpdate;
+          
+          if (this.blogJson) {
+            this.oldBlog = JSON.parse(this.blogJson);
+            console.log('deliver blog = ' + this.oldBlog);
+          }
+
+          this.formulario = this.fb.group({
+            title: [this.oldBlog.title, Validators.required],
+            content: [this.oldBlog.content, Validators.required],
+            author: [this.oldBlog.author, Validators.required]
+          });
         }
   }
 
@@ -74,19 +92,20 @@ export class BlogFormComponent implements OnInit
   {
     if (this.formulario.valid) 
       {
-      if(this.actionForm === 'Create')
+        console.log('form valid ')
+      if(this.formAction === 'Create')
         {
           this.blogCreated = this.formulario.value;
-          console.log('blog = ' + this.blogCreated.title + ' created');
           this.createBlog(this.blogCreated);
+          console.log('4- created done')
         }
-        else if(this.actionForm === 'Update')
-          {
-            this.newBlog = this.formulario.value;
-            this.updateBlog(this.oldBlog, this.newBlog);
-          }
+      else if(this.formAction === 'Update')
+        {
+          this.newBlog = this.formulario.value;
+          this.updateBlog(this.oldBlog, this.newBlog);
+          console.log('updated done')
+        }
         this.back();
-        location.reload();
     } else
     {
       console.error('Formulario inválido');
@@ -98,6 +117,12 @@ export class BlogFormComponent implements OnInit
     this.blogService.createBlog(blog).subscribe({
       next: (response: any) => {
         this.blogCreated = response;
+        console.log('1- blog created = ' + this.blogCreated);
+          console.log('2- formulario created = ' + this.formulario.value);
+          console.log('3- blog = ' + this.blogCreated.title + ' created');
+      },
+      error: (error: any) => {
+        
       },
     });
   }
@@ -107,7 +132,9 @@ export class BlogFormComponent implements OnInit
     this.blogService.updateBlog(oldBlog.id, newBlog).subscribe({
       next: (response: any) => {
         this.blogUpdated = response;
-        console.log('updated = ' + this.blogUpdated.title);
+        console.log('1- blog updated = ' + this.blogUpdated.title);
+          console.log('2- formulario updated = ' + this.formulario.value)
+          console.log('3- blog = ' + this.blogUpdated.title + ' updated');
       },
       error: (error: any) => {
         if (error instanceof HttpErrorResponse) {
@@ -122,8 +149,7 @@ export class BlogFormComponent implements OnInit
 
   back() 
   {
-    this.editable.emit(false);
-    location.reload();
+    this.router.navigate(['/blog']);
   }
 
 }

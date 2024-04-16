@@ -3,19 +3,25 @@
     <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-content">
     <mat-form-field >
       <mat-label>Title</mat-label>
-      <input matInput formControlName="title" placeholder="Enter title">
+      <input matInput type="text" formControlName="title" placeholder="Enter title" 
+      minlength="1" maxlength="20"
+      >
       <mat-error *ngIf="formulario.get('title')?.hasError('required')">Title is required</mat-error>
     </mat-form-field>
   
     <mat-form-field>
       <mat-label>Content</mat-label>
-      <textarea matInput formControlName="content" placeholder="Enter content"></textarea>
+      <textarea matInput type="text" formControlName="content" placeholder="Enter content" 
+      minlength="1" maxlength="50"
+      ></textarea>
       <mat-error *ngIf="formulario.get('content')?.hasError('required')">Content is required</mat-error>
     </mat-form-field>
   
     <mat-form-field>
       <mat-label>Author</mat-label>
-      <input matInput formControlName="author" placeholder="Enter author">
+      <input matInput type= "text" formControlName="author" placeholder="Enter author"
+      minlength="1" maxlength="20"
+      >
       <mat-error *ngIf="formulario.get('author')?.hasError('required')">Author is required</mat-error>
     </mat-form-field>
   

@@ -136,7 +136,8 @@ export class BlogFormComponent implements OnInit
           console.log('3- blog = ' + this.blogUpdated.title + ' updated');
       },
       error: (error: any) => {
-        if (error instanceof HttpErrorResponse) {
+        if (error instanceof HttpErrorResponse)
+          {
           console.log('Error status: ' + error.status);
           console.log('Error body: ' + JSON.stringify(error.error));
         } else {

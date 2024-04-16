@@ -6,8 +6,9 @@
             >   Create Blog
             </button>
             <div class="search-content">
-              <input type="search" [(ngModel)]="searchCriteria">
-          <button (click)="search()">Buscar</button>          
+              <input type="number" [(ngModel)]="searchCriteria" min="0" required 
+              >
+              <button (click)="search()">Buscar</button>          
             </div>
         </div>
         <div class="table-content ">

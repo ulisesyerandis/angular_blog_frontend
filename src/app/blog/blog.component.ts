@@ -35,7 +35,7 @@ export class BlogComponent implements OnInit
   blogDeleted?: Blog;
   blogCreated?: Blog;
 
-  searchCriteria!: string ;
+  searchCriteria: number = 0;
 
   displayedColumns: string[] = ['position', 'id', 'title', 'author', 'options'];
   dataSource = new MatTableDataSource<Blog>();
@@ -62,7 +62,7 @@ export class BlogComponent implements OnInit
     })
   }
 
-  public getAllBlogs(criteria?: string)
+  public getAllBlogs(criteria?: number)
   {
     this.blogService.getAllBlogs(criteria).subscribe({
       next: (response: any) => {
@@ -73,6 +73,13 @@ export class BlogComponent implements OnInit
         this.setupPaginator();
       },
       error: (error: any) => {
+        if (error instanceof HttpErrorResponse) 
+          {
+          console.log('Error status: ' + error.status);
+          console.log('Error body: ' + JSON.stringify(error.error));
+          } else {
+          console.log('Error: ' + error);
+        }
       },
     });
   }

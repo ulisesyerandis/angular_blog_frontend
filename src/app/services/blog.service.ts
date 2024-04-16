@@ -11,7 +11,7 @@ export class BlogService
   public constructor(private http: HttpClient)
   { }
 
-  public getAllBlogs(criteria?: string)
+  public getAllBlogs(criteria?: number)
   {
     let params = new HttpParams;
     if(criteria)

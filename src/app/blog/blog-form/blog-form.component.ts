@@ -38,7 +38,6 @@ export class BlogFormComponent implements OnInit
   buttonTitle: string = '';
 
   blogJson?: string;
-
   formAction: string = '';
 
   constructor

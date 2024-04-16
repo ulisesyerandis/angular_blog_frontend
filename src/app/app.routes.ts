@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 import { BlogComponent } from './blog/blog.component';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
-import { FormComponent } from './form/form.component';
 
 export const routes: Routes = 
 [
@@ -25,10 +24,6 @@ export const routes: Routes =
         title: 'Blog Form',
         component: BlogFormComponent,
     },
-    {
-        path: 'form',
-        title: 'Form',
-        component: FormComponent,
-    },
+    
     { path: '*', redirectTo: 'blog', pathMatch: 'full' }
 ];

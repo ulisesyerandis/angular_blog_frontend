@@ -1,15 +1,17 @@
 <div class="container">
-  <!-- @if (!editable) 
-  { -->
+  
     <div class="page-content">
         <div class="create-search-content">
             <button class="btn-create" mat-button (click)="createButton()"
             >   Create Blog
             </button>
+            <div class="search-content">
+              <input type="search" [(ngModel)]="searchCriteria">
+          <button (click)="search()">Buscar</button>          
+            </div>
         </div>
         <div class="table-content ">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z0  mat-row-striped">
-          
               <!-- Position Column -->
               <ng-container matColumnDef="position">
                 <th mat-header-cell *matHeaderCellDef> No. </th>
@@ -50,7 +52,7 @@
             </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="openDialog(row)"></tr>
             </table>
           
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
@@ -59,25 +61,5 @@
             </mat-paginator>
           </div>
           
-    </div>
-  <!-- } @else {
-
-    @defer (when formAction === 'Create') 
-    {
-      <app-blog-form
-        [formAction]="formAction"
-        (editable)="editable = $event"
-      />
-    }
-    @defer (when formAction === 'Update') 
-    {
-      <app-blog-form
-      [formAction]="formAction"
-      [blogToUpdate]="blogToUpdate"
-      (editable)="editable = $event"
-      />
-    }
-    
-  } -->
-    
+    </div>    
 </div>

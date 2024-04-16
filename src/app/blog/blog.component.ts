@@ -5,18 +5,23 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { BlogModalComponent } from '../blog-modal/blog-modal.component';
 
 @Component({
   selector: 'app-blog',
   standalone: true,
   imports: 
   [
-    CommonModule, MatTableModule,
-    MatButtonModule, MatPaginator,
-    BlogFormComponent
+    CommonModule, MatTableModule, MatButtonModule, MatPaginator,
+    BlogFormComponent, FormsModule, MatFormFieldModule, MatInputModule,
+    
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
@@ -29,6 +34,8 @@ export class BlogComponent implements OnInit
   blog?: Blog;
   blogDeleted?: Blog;
   blogCreated?: Blog;
+
+  searchCriteria!: string ;
 
   displayedColumns: string[] = ['position', 'id', 'title', 'author', 'options'];
   dataSource = new MatTableDataSource<Blog>();
@@ -44,20 +51,20 @@ export class BlogComponent implements OnInit
     private blogService: BlogService,
     private router: Router,
     private route: ActivatedRoute,
+    public dialog: MatDialog,
   )
   { }
   
   ngOnInit(): void 
-  {
-    this.getAllBlogs();   
+  { 
     this.route.queryParams.subscribe(params =>{
       this.getAllBlogs();
     })
   }
 
-  public getAllBlogs()
+  public getAllBlogs(criteria?: string)
   {
-    this.blogService.getAllBlogs().subscribe({
+    this.blogService.getAllBlogs(criteria).subscribe({
       next: (response: any) => {
         this.blogList = response;
         this.dataSource.data = this.blogList;
@@ -141,4 +148,22 @@ export class BlogComponent implements OnInit
     }
   }
   
+  public search() 
+  {
+    if (this.searchCriteria) 
+      {
+      this.getAllBlogs(this.searchCriteria);
+    } else {
+      this.getAllBlogs(); 
+    }
+  }
+  
+  public openDialog(blog: Blog) 
+  {
+    console.log('open dialog')
+    this.dialog.open(BlogModalComponent, {
+      width: '400px',
+      data: blog
+    });
+  }
 }

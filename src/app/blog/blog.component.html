@@ -5,10 +5,10 @@
             >   Create Blog
             </button>
             <div class="search-content">
-              <mat-form-field>
-                <input matInput type="number" placeholder="Search Criteria" [(ngModel)]="searchCriteria" required>
-              </mat-form-field>
-              <button mat-raised-button color="primary" (click)="search()">Search</button>
+              <div class="input-content">
+                <input type="number" class="input-field" placeholder="Search Criteria" [(ngModel)]="searchCriteria" required>
+              </div>
+              <button mat-raised-button class="btn-search" (click)="search()">Search</button>
             </div>            
         </div>
         <div class="table-content ">
@@ -62,7 +62,8 @@
           
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                            showFirstLastButtons
-                           aria-label="Select page of periodic elements">
+                           aria-label="Select page of periodic elements"
+                           class="paginator">
             </mat-paginator>
           </div>
           

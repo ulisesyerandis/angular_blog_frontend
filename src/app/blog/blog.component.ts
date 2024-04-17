@@ -113,12 +113,12 @@ export class BlogComponent implements OnInit
   {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to revert this!",
+      text: "You wan to delete this blog!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Delete"
     }).then((result) => {
       if (result.isConfirmed) 
         {

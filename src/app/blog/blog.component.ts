@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { BlogModalComponent } from '../blog-modal/blog-modal.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-blog',
@@ -21,7 +22,6 @@ import { BlogModalComponent } from '../blog-modal/blog-modal.component';
   [
     CommonModule, MatTableModule, MatButtonModule, MatPaginator,
     BlogFormComponent, FormsModule, MatFormFieldModule, MatInputModule,
-    
   ],
   templateUrl: './blog.component.html',
   styleUrl: './blog.component.css'
@@ -110,21 +110,44 @@ export class BlogComponent implements OnInit
 
   public deleteBlog(id: string)
   {
-    this.blogService.deleteBlog(id).subscribe({
-      next: (response: any) => {
-        this.blogDeleted = response;
-        console.log('blog deleted = ' + this.blogDeleted?.title);
-        this.getAllBlogs();
-      },
-      error: (error: any) => {
-        if (error instanceof HttpErrorResponse) {
-          console.log('Error status: ' + error.status);
-          console.log('Error body: ' + JSON.stringify(error.error));
-        } else {
-          console.log('Error: ' + error);
-        }
-      },
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) 
+        {
+          console.log('id de blog a eliminar = '+ id);
+          this.blogService.deleteBlog(id).subscribe({
+          next: (response: any) => {
+          this.blogDeleted = response;
+          console.log('blog deleted = ' + this.blogDeleted?.title);
+
+          Swal.fire({
+            title: "Deleted!",
+            text: "The blog " + this.blogDeleted?.title + " written by " 
+            + this.blogDeleted?.author + " has been deleted.",
+            icon: "success"
+          });
+          this.getAllBlogs();
+          },
+          error: (error: any) => {
+          if (error instanceof HttpErrorResponse) 
+            {
+              console.log('Error status: ' + error.status);
+              console.log('Error body: ' + JSON.stringify(error.error));
+            } else {
+              console.log('Error: ' + error);
+            }
+          },
+        });  
+      }
     });
+    
   }
 
   public createButton()
@@ -138,7 +161,6 @@ export class BlogComponent implements OnInit
     this.blogToUpdate.id = id;
     this.navigateToForm('Update', this.blogToUpdate);
   }
-
 
   public navigateToForm(action: string, blog?: Blog) 
   {

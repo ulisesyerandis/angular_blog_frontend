@@ -49,11 +49,15 @@
               class="btn btn-delete"mat-button 
               (click)="deleteBlog(element.id)"  
             >   Delete  </button>
+            <button 
+              class="btn btn-read"mat-button 
+              (click)="openDialog(element)"  
+            >   Read  </button>
               </td>
             </ng-container>
           
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"(click)="openDialog(row)"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             </table>
           
             <mat-paginator [pageSizeOptions]="[5, 10, 20]"

@@ -10,7 +10,9 @@ import { BlogService } from '../../services/blog.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-blog-form',
@@ -46,6 +48,7 @@ export class BlogFormComponent implements OnInit
     private blogService: BlogService,
     private route: ActivatedRoute,
     private router: Router,
+    private _snackBar: MatSnackBar,
   ) 
   {
     this.formulario = this.fb.group({
@@ -117,8 +120,16 @@ export class BlogFormComponent implements OnInit
       next: (response: any) => {
         this.blogCreated = response;
         console.log('1- blog created = ' + this.blogCreated);
-          console.log('2- formulario created = ' + this.formulario.value);
-          console.log('3- blog = ' + this.blogCreated.title + ' created');
+        console.log('2- formulario created = ' + this.formulario.value);
+        console.log('3- blog = ' + this.blogCreated.title + ' created');
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your blog has been saved",
+          showConfirmButton: false,
+          timer: 2000
+        });
       },
       error: (error: any) => {
         
@@ -128,22 +139,43 @@ export class BlogFormComponent implements OnInit
 
   public updateBlog(oldBlog: Blog, newBlog: Blog)
   {
-    this.blogService.updateBlog(oldBlog.id, newBlog).subscribe({
-      next: (response: any) => {
-        this.blogUpdated = response;
-        console.log('1- blog updated = ' + this.blogUpdated.title);
-          console.log('2- formulario updated = ' + this.formulario.value)
-          console.log('3- blog = ' + this.blogUpdated.title + ' updated');
-      },
-      error: (error: any) => {
-        if (error instanceof HttpErrorResponse)
-          {
-          console.log('Error status: ' + error.status);
-          console.log('Error body: ' + JSON.stringify(error.error));
-        } else {
-          console.log('Error: ' + error);
-        }
-      },
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You wan to update the blog "
+      + oldBlog.title + " from " + oldBlog.author 
+      + " -> " + newBlog.title + " from " + newBlog.author,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes!"
+    }).then((result) => {
+      if (result.isConfirmed) 
+        {
+          this.blogService.updateBlog(oldBlog.id, newBlog).subscribe({
+            next: (response: any) => {
+              this.blogUpdated = response;
+              console.log('1- blog updated = ' + this.blogUpdated.title);
+                console.log('2- formulario updated = ' + this.formulario.value)
+                console.log('3- blog = ' + this.blogUpdated.title + ' updated');
+            },
+            error: (error: any) => {
+              if (error instanceof HttpErrorResponse)
+                {
+                console.log('Error status: ' + error.status);
+                console.log('Error body: ' + JSON.stringify(error.error));
+              } else {
+                console.log('Error: ' + error);
+              }
+            },
+          });
+
+        Swal.fire({
+          title: "Updated!",
+          text: "Your blog has been updated.",
+          icon: "success"
+        });
+      }
     });
   } 
 
@@ -152,4 +184,5 @@ export class BlogFormComponent implements OnInit
     this.router.navigate(['/blog']);
   }
 
+  
 }

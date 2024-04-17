@@ -9,8 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormGroup, NgModel } from '@angular/forms';
 import { BlogFormComponent } from './blog/blog-form/blog-form.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: 
@@ -18,7 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(HttpClientModule, MatTableModule,
       MatPaginatorModule, MatButtonModule, MatFormFieldModule,
-      MatInputModule,NgModel), 
+      MatInputModule, MatSnackBar, ), 
       BlogFormComponent,
     provideAnimationsAsync()
   ]

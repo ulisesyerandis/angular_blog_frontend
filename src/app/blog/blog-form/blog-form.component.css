@@ -24,7 +24,7 @@
 
             mat-label
             {
-                color: white;
+                /* color: white; */
             }
 
         }
@@ -39,20 +39,20 @@
             .btn
             {
                 width: 30%;
-                background-color: #50B358;
+                /* background-color: #50B358; */
             }
 
             button.btn:disabled 
             {
                 opacity: 0.5; 
                 cursor: not-allowed; 
-                background-color: gray
+                /* background-color: gray */
             }
 
             .btn-back
             {
                 width: 30%;
-                background-color: #425885;
+                /* background-color: #425885; */
             }
         }
     }
@@ -87,7 +87,7 @@
 
             mat-label
             {
-                color: white;
+                /* color: white; */
             }
         }
 
@@ -101,20 +101,20 @@
             .btn
             {
                 width: 30%;
-                background-color: #50B358;
+                /* background-color: #50B358; */
             }
 
             button.btn:disabled 
             {
                 opacity: 0.5; 
                 cursor: not-allowed; 
-                background-color: gray
+                /* background-color: gray */
             }
 
             .btn-back
             {
                 width: 30%;
-                background-color: #854242;
+                /* background-color: #854242; */
             }
         }
     }

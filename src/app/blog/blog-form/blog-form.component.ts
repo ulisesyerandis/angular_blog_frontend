@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -11,7 +10,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -28,7 +26,6 @@ import Swal from 'sweetalert2';
 
 export class BlogFormComponent implements OnInit
 {
-  private blogCreatedSubject = new BehaviorSubject<Blog | null>(null);
 
   formulario: FormGroup;
   blogCreated!: Blog;
@@ -64,11 +61,10 @@ export class BlogFormComponent implements OnInit
     this.route.queryParams.subscribe(params => {
       this.formAction = params['action'];
       this.blogJson = params['blog'];
-      console.log('deliver action = ' + this.formAction + '-' + params['action']);
     });
   
     if(this.formAction === 'Create')
-      {console.log('deliver action = ' + this.formAction );
+      {
         this.title = this.formAction;
         this.buttonTitle = 'Create Blog';
       }
@@ -79,7 +75,6 @@ export class BlogFormComponent implements OnInit
           
           if (this.blogJson) {
             this.oldBlog = JSON.parse(this.blogJson);
-            console.log('deliver blog = ' + this.oldBlog);
           }
 
           this.formulario = this.fb.group({
@@ -94,24 +89,19 @@ export class BlogFormComponent implements OnInit
   {
     if (this.formulario.valid) 
       {
-        console.log('form valid ')
       if(this.formAction === 'Create')
         {
           this.blogCreated = this.formulario.value;
           this.createBlog(this.blogCreated);
-          console.log('4- created done')
         }
       else if(this.formAction === 'Update')
         {
           this.newBlog = this.formulario.value;
           this.updateBlog(this.oldBlog, this.newBlog);
-          console.log('updated done')
         }
         this.back();
     } else
-    {
-      console.error('Formulario inválido');
-    }
+    { }
   }
 
   public createBlog(blog: Blog)  
@@ -119,10 +109,7 @@ export class BlogFormComponent implements OnInit
     this.blogService.createBlog(blog).subscribe({
       next: (response: any) => {
         this.blogCreated = response;
-        console.log('1- blog created = ' + this.blogCreated);
-        console.log('2- formulario created = ' + this.formulario.value);
-        console.log('3- blog = ' + this.blogCreated.title + ' created');
-
+        
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -132,51 +119,37 @@ export class BlogFormComponent implements OnInit
         });
       },
       error: (error: any) => {
-        
       },
     });
   }
 
   public updateBlog(oldBlog: Blog, newBlog: Blog)
   {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You wan to update the blog "
-      + oldBlog.title + " from " + oldBlog.author 
-      + " -> " + newBlog.title + " from " + newBlog.author,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes!"
-    }).then((result) => {
-      if (result.isConfirmed) 
-        {
           this.blogService.updateBlog(oldBlog.id, newBlog).subscribe({
             next: (response: any) => {
               this.blogUpdated = response;
-              console.log('1- blog updated = ' + this.blogUpdated.title);
-                console.log('2- formulario updated = ' + this.formulario.value)
-                console.log('3- blog = ' + this.blogUpdated.title + ' updated');
+              this.blogService.getAllBlogs();
+              
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your blog has been updated",
+                showConfirmButton: false,
+                timer: 2000
+              });
             },
             error: (error: any) => {
               if (error instanceof HttpErrorResponse)
                 {
-                console.log('Error status: ' + error.status);
-                console.log('Error body: ' + JSON.stringify(error.error));
+                  Swal.fire({
+                    title: "Error updating blog",
+                    text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
+                    icon: "error",
+                  });
               } else {
-                console.log('Error: ' + error);
               }
             },
           });
-
-        Swal.fire({
-          title: "Updated!",
-          text: "Your blog has been updated.",
-          icon: "success"
-        });
-      }
-    });
   } 
 
   back() 

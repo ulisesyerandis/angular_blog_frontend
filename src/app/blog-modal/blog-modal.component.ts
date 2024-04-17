@@ -1,13 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { Blog } from '../model/blog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-blog-modal',
   standalone: true,
   imports: 
   [
-    MatDialogModule
+    MatDialogModule, MatButtonModule
   ],
   templateUrl: './blog-modal.component.html',
   styleUrl: './blog-modal.component.css'

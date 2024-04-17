@@ -16,11 +16,10 @@
 
         .create-search-content
         {
-            /* border: red 1px solid; */
             width: 70%;
             padding-left: 2%;
+            padding-right: 2%;
             padding-bottom: 2%;
-            /* height: auto; */
 
             display: flex;
             flex-direction: row;
@@ -30,7 +29,20 @@
             .btn-create
             {
                 background-color: rgb(11, 151, 34);
-                /* width: 15%; */
+            }
+
+            .search-content
+            {
+                width: auto;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+
+                input
+                {
+                    height: 30%;
+                }
             }
         }
 
@@ -39,9 +51,10 @@
             width: 70%;
             height: auto;
 
-            /* table{
-                background-color: white;
-            } */
+            mat-cell button 
+            {
+                margin-right: 8px; 
+            }
 
            .btn-update
            {
@@ -51,6 +64,11 @@
            .btn-delete
            {
             background-color: rgb(138, 42, 42);
+           }
+
+           .btn-read
+           {
+            background-color: rgb(194, 187, 86);
            }
         }
     }

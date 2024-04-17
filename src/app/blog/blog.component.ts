@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BlogService } from '../services/blog.service';
 import { Blog } from '../model/blog';
 import { CommonModule } from '@angular/common';
@@ -42,7 +42,8 @@ export class BlogComponent implements OnInit
 
   @ViewChild(MatPaginator, {static: false}) paginator!: MatPaginator;
 
-  ngAfterViewInit() {
+  ngAfterViewInit() 
+  {
     this.dataSource.paginator = this.paginator;
   }
 
@@ -68,17 +69,17 @@ export class BlogComponent implements OnInit
       next: (response: any) => {
         this.blogList = response;
         this.dataSource.data = this.blogList;
-        console.log('bloglist = ' + this.blogList);
-        console.log('datasource = ' + this.dataSource);
         this.setupPaginator();
       },
       error: (error: any) => {
         if (error instanceof HttpErrorResponse) 
           {
-          console.log('Error status: ' + error.status);
-          console.log('Error body: ' + JSON.stringify(error.error));
+            Swal.fire({
+              title: "Error showing blog list",
+              text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
+                    icon: "error",
+            });
           } else {
-          console.log('Error: ' + error);
         }
       },
     });
@@ -87,7 +88,6 @@ export class BlogComponent implements OnInit
   public setupPaginator() 
   {
     this.dataSource.paginator = this.paginator;
-    console.log('paginator = ' + this.dataSource.paginator);
   }
 
   public getBlog(id: string)
@@ -95,14 +95,15 @@ export class BlogComponent implements OnInit
     this.blogService.getBlog(id).subscribe({
       next: (response: any) => {
         this.blog = response;
-        console.log('blog title = ' + this.blog?.title);
       },
       error: (error: any) => {
         if (error instanceof HttpErrorResponse) {
-          console.log('Error status: ' + error.status);
-          console.log('Error body: ' + JSON.stringify(error.error));
+          Swal.fire({
+            title: "Error showing blog ",
+            text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
+            icon: "error",
+          });
         } else {
-          console.log('Error: ' + error);
         }
       },
     });
@@ -121,11 +122,9 @@ export class BlogComponent implements OnInit
     }).then((result) => {
       if (result.isConfirmed) 
         {
-          console.log('id de blog a eliminar = '+ id);
           this.blogService.deleteBlog(id).subscribe({
           next: (response: any) => {
           this.blogDeleted = response;
-          console.log('blog deleted = ' + this.blogDeleted?.title);
 
           Swal.fire({
             title: "Deleted!",
@@ -138,16 +137,17 @@ export class BlogComponent implements OnInit
           error: (error: any) => {
           if (error instanceof HttpErrorResponse) 
             {
-              console.log('Error status: ' + error.status);
-              console.log('Error body: ' + JSON.stringify(error.error));
+              Swal.fire({
+                title: "Error deleting blog ",
+                text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
+                icon: "error",
+              });
             } else {
-              console.log('Error: ' + error);
             }
           },
         });  
       }
     });
-    
   }
 
   public createButton()
@@ -164,14 +164,11 @@ export class BlogComponent implements OnInit
 
   public navigateToForm(action: string, blog?: Blog) 
   {
-    console.log('sended action: ' + action);
     if(action === 'Create')
       {
         this.router.navigate(['/blog-form'], {queryParams: {action: 'Create'}});
       } else if(action === 'Update')
     {
-      console.log('sending blog: ' + blog?.title);
-      console.log('sended action: ' + action);
       const blogJson = JSON.stringify(blog);
       this.router.navigate(['/blog-form'], {queryParams: {action: 'Update', blog: blogJson}});
     }
@@ -189,7 +186,6 @@ export class BlogComponent implements OnInit
   
   public openDialog(blog: Blog) 
   {
-    console.log('open dialog')
     this.dialog.open(BlogModalComponent, {
       width: '400px',
       data: blog

@@ -1,193 +1,166 @@
-.container
-{
+.container {
+  width: 100%;
+  height: 100%;
+
+  .page-content {
+    width: 100%;
+    height: 90%;
+    padding-top: 2%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2%;
+
+    .create-search-content {
+      width: 70%;
+      padding-left: 2%;
+      padding-right: 2%;
+      padding-bottom: 2%;
+
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .btn-create {
+        background-color: #50b358;
+        color: white;
+      }
+
+      .search-content {
+        width: 40%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+
+        .input-content {
+          height: 90%;
+
+          .input-field {
+            height: 100%;
+            padding-right: 50px;
+            border-radius: 5px;
+          }
+        }
+        .btn-search {
+          padding-left: 10px;
+          background-color: #425885;
+          width: 20%;
+          height: 100%;
+          color: white;
+        }
+      }
+    }
+
+    .table-content {
+      width: 70%;
+      height: auto;
+      background-color: white;
+
+      .btn-update {
+        background-color: #5d7eac;
+        width: 20%;
+        margin-right: 20px;
+      }
+
+      .btn-delete {
+        background-color: #bd6a55;
+        width: 20%;
+      }
+
+      .btn-read {
+        background-color: #708cb1;
+        width: 20%;
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1023.98px) {
+  .container {
     width: 100%;
     height: 100%;
 
-    .page-content
-    {
-        width: 100%;
-        height: 90%;
-        padding-top: 2%;
+    .page-content {
+      width: 100%;
+      height: 90%;
+      padding-top: 2%;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2%;
+
+      .create-search-content {
+        width: 70%;
 
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 2%;
+        justify-content: space-evenly;
 
-        .create-search-content
-        {
-            width: 70%;
-            padding-left: 2%;
-            padding-right: 2%;
-            padding-bottom: 2%;
-
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-
-            .btn-create
-            {
-                background-color: #50B358;
-            }
-
-            .search-content
-            {
-                width: 40%;
-                height: 100%;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-
-                .input-content
-                {
-                    height: 90%;
-                
-                .input-field
-                {
-                    height: 100%;
-                    padding-right: 50px;
-                    border-radius: 5px;
-                }
-                }
-                .btn-search
-                {padding-left: 10px;
-                    background-color: #425885;
-                    width: 20%;
-                    height: 100%;
-                }
-            }
+        .btn-create {
+          background-color: #50b358;
+          width: 80px;
         }
 
-        .table-content
-        {
-            width: 70%;
-            height: auto;
-            background-color: white;
+        .search-content {
+          width: 40%;
+          height: 100%;
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
 
-           .btn-update
-           {
-            background-color: #5D7EAC;
-            width: 20%;
-            margin-right: 20px; 
-           }
+          .input-content {
+            height: 70%;
+            width: 60%;
 
-           .btn-delete
-           {
-            background-color: #bd6a55;
-            width: 20%;
-           }
-
-           .btn-read
-           {
-            background-color: #708cb1;
-            width: 20%;
-            margin-left: 20px; 
-           }
+            .input-field {
+              height: 80%;
+              width: 50%;
+              padding-right: 50px;
+              border-radius: 5px;
+            }
+          }
+          .btn-search {
+            padding-left: 10px;
+            background-color: #425885;
+            width: 80px;
+            height: 80%;
+          }
         }
+      }
+
+      .table-content {
+        width: 70%;
+        height: auto;
+
+        .btn-update {
+          background-color: #5d7eac;
+          width: 20%;
+          margin-right: 20px;
+        }
+
+        .btn-delete {
+          background-color: #bd6a55;
+          width: 20%;
+        }
+
+        .btn-read {
+          background-color: #708cb1;
+          width: 20%;
+          margin-left: 20px;
+        }
+
+        .paginator {
+          width: 100%;
+        }
+      }
     }
+  }
 }
-
-@media only screen and (max-width: 1023.98px) 
-{
-    .container
-    {
-        width: 100%;
-        height: 100%;
-    
-        .page-content
-        {
-            width: 100%;
-            height: 90%;
-            padding-top: 2%;
-    
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2%;
-    
-            .create-search-content
-            {
-                width: 70%;
-    
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                justify-content: space-evenly;
-    
-                .btn-create
-                {
-                    background-color: #50B358;
-                    width: 80px;
-                }
-    
-                .search-content
-                {
-                    width: 40%;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: row;
-                    justify-content: center;
-                    align-items: center;
-    
-                    .input-content
-                    {
-                        height: 70%;
-                        width: 60%;
-                    
-                    .input-field
-                    {
-                        height: 80%;
-                        width: 50%;
-                        padding-right: 50px;
-                        border-radius: 5px;
-                    }
-                    }
-                    .btn-search
-                    {padding-left: 10px;
-                        background-color: #425885;
-                        width: 80px;
-                        height: 80%;
-                    }
-                }
-            }
-    
-            .table-content
-            {
-                width: 70%;
-                height: auto;
-    
-               .btn-update
-               {
-                background-color: #5D7EAC;
-                width: 20%;
-                margin-right: 20px; 
-               }
-    
-               .btn-delete
-               {
-                background-color: #bd6a55;
-                width: 20%;
-               }
-    
-               .btn-read
-               {
-                background-color: #708cb1;
-                width: 20%;
-                margin-left: 20px; 
-               }
-
-               .paginator
-               {
-                width: 100%;
-               }
-            }
-        }
-    } 
-}
-    
-
-  
-
-   

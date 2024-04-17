@@ -143,8 +143,6 @@ export class BlogFormComponent implements OnInit
                 {
                   Swal.fire({
                     title: "Error updating blog",
-                    text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
-                    icon: "error",
                   });
               } else {
               }

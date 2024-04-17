@@ -6,7 +6,7 @@
             </button>
             <div class="search-content">
               <div class="input-content">
-                <input type="number" class="input-field" placeholder="Search Criteria" [(ngModel)]="searchCriteria" required>
+                <input type="number" class="input-field" placeholder="Search Criteria" min="0" [(ngModel)]="searchCriteria" required>
               </div>
               <button mat-raised-button class="btn-search" (click)="search()">Search</button>
             </div>            
@@ -42,17 +42,18 @@
               <th mat-header-cell *matHeaderCellDef >Options</th>
               <td mat-cell *matCellDef="let element">
                 <button 
-                class="btn btn-update"mat-button
-                (click)="updateBlog(element.id, element)"
-              > Update  </button>
-              <button 
-              class="btn btn-delete"mat-button 
-              (click)="deleteBlog(element.id)"  
-            >   Delete  </button>
-            <button 
-              class="btn btn-read"mat-button 
-              (click)="openDialog(element)"  
-            >   Read  </button>
+                  class="btn btn-read"mat-button 
+                  (click)="openDialog(element)"  
+                >   Read  </button>
+                <button 
+                  class="btn btn-update"mat-button
+                  (click)="updateBlog(element.id, element)"
+                > Update  </button>
+                <button 
+                  class="btn btn-delete"mat-button 
+                  (click)="deleteBlog(element.id)"  
+                > Delete  </button>
+            
               </td>
             </ng-container>
           
@@ -66,6 +67,15 @@
                            class="paginator">
             </mat-paginator>
           </div>
+          @if (show) 
+          {
+            <div class="list-button-content">
+            <button class="btn-list" mat-button (click)="fillTable()"
+            >   List 
+            </button>
+          </div>
+          }
+          
           
     </div>    
 </div>

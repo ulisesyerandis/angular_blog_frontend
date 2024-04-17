@@ -1,8 +1,10 @@
-.container {
+.container 
+{
   width: 100%;
   height: 100%;
 
-  .page-content {
+  .page-content 
+  {
     width: 100%;
     height: 90%;
     padding-top: 2%;
@@ -12,7 +14,8 @@
     align-items: center;
     gap: 2%;
 
-    .create-search-content {
+    .create-search-content 
+    {
       width: 70%;
       padding-left: 2%;
       padding-right: 2%;
@@ -23,69 +26,102 @@
       align-items: center;
       justify-content: space-between;
 
-      .btn-create {
+      .btn-create 
+      {
         background-color: #50b358;
+        width: 110px;
         color: white;
       }
 
-      .search-content {
+      .search-content 
+      {
         width: 40%;
         height: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-end;
         align-items: center;
 
-        .input-content {
+        .input-content 
+        {
           height: 90%;
 
-          .input-field {
+          .input-field 
+          {
             height: 100%;
             padding-right: 50px;
             border-radius: 5px;
           }
         }
-        .btn-search {
+        .btn-search 
+        {
           padding-left: 10px;
           background-color: #425885;
-          width: 20%;
+          width: 110px;
           height: 100%;
           color: white;
         }
       }
     }
 
-    .table-content {
+    .table-content 
+    {
       width: 70%;
       height: auto;
       background-color: white;
 
-      .btn-update {
+      .btn-update 
+      {
         background-color: #5d7eac;
-        width: 20%;
+        width: 110px;
         margin-right: 20px;
-      }
-
-      .btn-delete {
-        background-color: #bd6a55;
-        width: 20%;
-      }
-
-      .btn-read {
-        background-color: #708cb1;
-        width: 20%;
         margin-left: 20px;
+        color: white;
+      }
+
+      .btn-delete
+      {
+        background-color: #bd6a55;
+        width: 110px;
+        color: white;
+      }
+
+      .btn-read 
+      {
+        background-color: #708cb1;
+        width: 110px;
+        color: white;
       }
     }
+
+    .list-button-content
+  {
+    width: 70%;
+    padding-left: 2%;
+    padding-right: 2%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+
+    .btn-list
+    {
+      background-color: #50b358;
+      width: 110px;
+      color: white;
+    }
+  }
   }
 }
 
-@media only screen and (max-width: 1023.98px) {
-  .container {
+@media only screen and (max-width: 923.98px) 
+{
+  .container 
+  {
     width: 100%;
     height: 100%;
 
-    .page-content {
+    .page-content 
+    {
       width: 100%;
       height: 90%;
       padding-top: 2%;
@@ -95,7 +131,8 @@
       align-items: center;
       gap: 2%;
 
-      .create-search-content {
+      .create-search-content 
+      {
         width: 70%;
 
         display: flex;
@@ -103,12 +140,14 @@
         align-items: center;
         justify-content: space-evenly;
 
-        .btn-create {
+        .btn-create 
+        {
           background-color: #50b358;
           width: 80px;
         }
 
-        .search-content {
+        .search-content 
+        {
           width: 40%;
           height: 100%;
           display: flex;
@@ -116,18 +155,21 @@
           justify-content: center;
           align-items: center;
 
-          .input-content {
+          .input-content 
+          {
             height: 70%;
             width: 60%;
 
-            .input-field {
+            .input-field 
+            {
               height: 80%;
               width: 50%;
               padding-right: 50px;
               border-radius: 5px;
             }
           }
-          .btn-search {
+          .btn-search 
+          {
             padding-left: 10px;
             background-color: #425885;
             width: 80px;
@@ -136,31 +178,53 @@
         }
       }
 
-      .table-content {
+      .table-content 
+      {
         width: 70%;
         height: auto;
 
-        .btn-update {
+        .btn-update 
+        {
           background-color: #5d7eac;
-          width: 20%;
+          width: 50px;
           margin-right: 20px;
         }
 
-        .btn-delete {
+        .btn-delete 
+        {
           background-color: #bd6a55;
-          width: 20%;
+          width: 50px;
         }
 
-        .btn-read {
+        .btn-read 
+        {
           background-color: #708cb1;
-          width: 20%;
+          width: 50px;
           margin-left: 20px;
         }
 
-        .paginator {
+        .paginator 
+        {
           width: 100%;
         }
       }
+
+      .list-button-content
+  {
+    width: 70%;
+    padding-left: 2%;
+    padding-right: 20%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+
+    .btn-list
+    {
+      background-color: #50b358;
+      width: 50px;
+      color: white;
+    }
+  }
     }
   }
 }

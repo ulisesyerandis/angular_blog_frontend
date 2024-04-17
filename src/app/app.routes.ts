@@ -19,11 +19,6 @@ export const routes: Routes =
         title: 'Blog Form',
         component: BlogFormComponent,
     },
-    {
-        path: 'blog-form/:blog',
-        title: 'Blog Form',
-        component: BlogFormComponent,
-    },
     
     { path: '*', redirectTo: 'blog', pathMatch: 'full' }
 ];

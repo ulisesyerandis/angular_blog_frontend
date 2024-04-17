@@ -36,6 +36,7 @@ export class BlogComponent implements OnInit
   blogCreated?: Blog;
 
   searchCriteria: number = 0;
+  show: boolean = false;
 
   displayedColumns: string[] = ['position', 'id', 'title', 'author', 'options'];
   dataSource = new MatTableDataSource<Blog>();
@@ -75,9 +76,7 @@ export class BlogComponent implements OnInit
         if (error instanceof HttpErrorResponse) 
           {
             Swal.fire({
-              title: "Error showing blog list",
-              text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
-                    icon: "error",
+              title: "Blog not found",
             });
           } else {
         }
@@ -97,11 +96,10 @@ export class BlogComponent implements OnInit
         this.blog = response;
       },
       error: (error: any) => {
-        if (error instanceof HttpErrorResponse) {
+        if (error instanceof HttpErrorResponse) 
+          {
           Swal.fire({
             title: "Error showing blog ",
-            text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
-            icon: "error",
           });
         } else {
         }
@@ -139,8 +137,6 @@ export class BlogComponent implements OnInit
             {
               Swal.fire({
                 title: "Error deleting blog ",
-                text:  "Error " + JSON.stringify(error.error) + "Error status:"  + error.status,
-                icon: "error",
               });
             } else {
             }
@@ -179,6 +175,7 @@ export class BlogComponent implements OnInit
     if (this.searchCriteria) 
       {
       this.getAllBlogs(this.searchCriteria);
+      this.show = true;
     } else {
       this.getAllBlogs(); 
     }
@@ -190,5 +187,11 @@ export class BlogComponent implements OnInit
       width: '400px',
       data: blog
     });
+  }
+
+  public fillTable()
+  {
+    this.getAllBlogs();
+    this.show = false
   }
 }

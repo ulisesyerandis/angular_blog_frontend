@@ -35,21 +35,22 @@
 
       .search-content 
       {
-        width: 40%;
         height: 100%;
-        display: flex;
+        /* display: flex;
         flex-direction: row;
         justify-content: flex-end;
-        align-items: center;
+        align-items: center; */
+        position: relative;
 
         .input-content 
         {
-          height: 90%;
+          height: 100%;
 
           .input-field 
           {
-            height: 100%;
-            padding-right: 50px;
+            height: 30px;
+            padding-right: 115px;
+            padding-left: 10px;
             border-radius: 5px;
           }
         }
@@ -58,8 +59,13 @@
           padding-left: 10px;
           background-color: #425885;
           width: 110px;
-          height: 100%;
+          height: 98%;
+          min-height: 35px;
           color: white;
+          position: absolute;
+          top: 0;
+          right: 0;
+          box-shadow: none;
         }
       }
     }
@@ -139,6 +145,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: space-evenly;
+        margin-bottom: 50px;
 
         .btn-create 
         {

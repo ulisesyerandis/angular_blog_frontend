@@ -1,12 +1,12 @@
   .container
   {
-    width: 90%;
-    height: 90%;
-    padding-top: 10%;
-
+    height: 100%;
+    margin: 0 auto;
+  
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 
     .form-content
     {
@@ -21,7 +21,6 @@
         mat-form-field
         {
             width: 70%;
-
         }
 
         .button-content

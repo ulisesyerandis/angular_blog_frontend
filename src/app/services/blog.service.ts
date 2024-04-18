@@ -38,7 +38,6 @@ export class BlogService
 
   public deleteBlog(id: string)
   {
-    console.log('id - ' + id)
     return this.http.delete('http://localhost:8000/blog/' + id);
   }
 }

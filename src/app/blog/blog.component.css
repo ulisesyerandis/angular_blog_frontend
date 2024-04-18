@@ -36,7 +36,7 @@
       .search-content 
       {
         width: 40%;
-        height: 100%;
+        height: auto;
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
@@ -44,12 +44,12 @@
 
         .input-content 
         {
-          height: 90%;
+          height: 38px;
 
           .input-field 
           {
-            height: 100%;
-            padding-right: 50px;
+            height: 90%;
+            padding-right: 20px;
             border-radius: 5px;
           }
         }
@@ -58,7 +58,7 @@
           padding-left: 10px;
           background-color: #425885;
           width: 110px;
-          height: 100%;
+          height: 40px;
           color: white;
         }
       }

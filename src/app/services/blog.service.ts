@@ -21,11 +21,6 @@ export class BlogService
     return this.http.get('http://localhost:8000/blog', {params});
   }
 
-  public getBlog(id: string)
-  {
-    return this.http.get('http://localhost:8000/blog/' + id);
-  }
-
   public createBlog(blog: Blog)
   {
     return this.http.post('http://localhost:8000/blog', blog);

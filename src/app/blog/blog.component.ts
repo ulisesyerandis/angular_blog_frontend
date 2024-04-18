@@ -87,25 +87,7 @@ export class BlogComponent implements OnInit
   public setupPaginator() 
   {
     this.dataSource.paginator = this.paginator;
-  }
-
-  public getBlog(id: string)
-  {
-    this.blogService.getBlog(id).subscribe({
-      next: (response: any) => {
-        this.blog = response;
-      },
-      error: (error: any) => {
-        if (error instanceof HttpErrorResponse) 
-          {
-          Swal.fire({
-            title: "Error showing blog ",
-          });
-        } else {
-        }
-      },
-    });
-  }                                    
+  }                                   
 
   public deleteBlog(id: string)
   {
